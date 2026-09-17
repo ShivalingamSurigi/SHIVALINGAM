@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jet AI - Mobile & API Access Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #090d16;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+    .container {
+      max-width: 620px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background: #131b2e;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    p.sub { color: #94a3b8; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+    
+    .qr-container {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 16px;
+      display: inline-block;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .qr-container img {
+      display: block;
+      width: 200px;
+      height: 200px;
+    }
+    
+    .link-box {
+      background: #0b1120;
+      border: 1px solid #334155;
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .link-text {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 14px;
+      color: #38bdf8;
+      word-break: break-all;
+      text-align: left;
+    }
+    .copy-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: #4f46e5; }
+    
+    .ip-editor {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .ip-editor label { color: #94a3b8; font-weight: 500; white-space: nowrap; }
+    .ip-editor input {
+      flex: 1;
+      background: #020617;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      outline: none;
+    }
+    .ip-editor input:focus { border-color: #6366f1; }
+    
+    .section-card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: left;
+    }
+    .section-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .api-endpoint {
+      background: #030712;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+    .api-method {
+      background: #059669;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .api-url {
+      color: #67e8f9;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .info-list {
+      padding-left: 18px;
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .info-list li { margin-bottom: 6px; }
+    .cloud-banner {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(14, 165, 233, 0.15));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: left;
+    }
+    .cloud-banner h3 {
+      font-size: 15px;
+      color: #a5b4fc;
+      margin-bottom: 6px;
+    }
+    .cloud-banner p {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .code-pill {
+      display: inline-block;
+      background: #030712;
+      border: 1px solid #374151;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      color: #38bdf8;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- MAIN MOBILE ACCESS CARD -->
+    <div class="card">
+      <div class="badge">Live Local Wi-Fi Link</div>
+      <h1>Open Jet AI on Mobile</h1>
+      <p class="sub">Scan this QR code with your iPhone or Android camera, or type the website link into your mobile browser.</p>
+
+      <div class="qr-container">
+        <img id="qrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://10.40.26.105:3000" alt="Jet AI QR Code">
+      </div>
+
+      <!-- Website Link Box -->
+      <div class="link-box">
+        <span class="link-text" id="mobileUrl">http://10.40.26.105:3000</span>
+        <button class="copy-btn" id="copyWebsiteBtn" onclick="copyText('mobileUrl', 'copyWebsiteBtn')">Copy Link</button>
+      </div>
+
+      <!-- Change IP manually if needed -->
+      <div class="ip-editor">
+        <label for="ipInput">Host IP:</label>
+        <input type="text" id="ipInput" value="10.40.26.105" placeholder="e.g. 192.168.1.5">
+        <button class="copy-btn" onclick="updateIp()">Update QR</button>
+      </div>
+
+      <ol class="info-list">
+        <li>Phone & Laptop must be on the <strong>same Wi-Fi</strong>.</li>
+        <li>Make sure Jet AI is running: launch <strong>Launch Jet AI.bat</strong> first.</li>
+        <li>Open your mobile camera or browser and paste the link.</li>
+      </ol>
+    </div>
+
+    <!-- API ENDPOINTS & MOBILE APP SECTION -->
+    <div class="section-card">
+      <h2><span class="badge badge-green" style="margin:0;">API</span> API Links (For Mobile Apps & Developers)</h2>
+      <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">
+        Use these exact API endpoints to send messages from Flutter, React Native, Swift, Kotlin, or cURL:
+      </p>
+
+      <div class="api-endpoint">
+        <span class="api-method">POST</span>
+        <span class="api-url" id="chatApiUrl">http://10.40.26.105:3000/api/chat</span>
+        <button class="copy-btn" id="copyApiBtn" onclick="copyText('chatApiUrl', 'copyApiBtn')">Copy</button>
+      </div>
+
+      <div class="api-endpoint">
+        <span class="api-method" style="background:#0284c7;">GET</span>
+        <span class="api-url" id="convApiUrl">http://10.40.26.105:3000/api/conversations</span>
+        <button class="copy-btn" id="copyConvBtn" onclick="copyText('convApiUrl', 'copyConvBtn')">Copy</button>
+      </div>
+
+      <div style="margin-top:12px; font-size:12px; color:#94a3b8;">
+        <strong>Chat API Payload format (JSON):</strong>
+        <pre style="background:#030712; border:1px solid #1f2937; padding:10px; border-radius:8px; margin-top:6px; color:#e2e8f0; overflow-x:auto;">{
+  "messages": [
+    { "role": "user", "content": "Hello Jet AI!" }
+  ],
+  "language": "auto",
+  "enableWebSearch": true
+}</pre>
+      </div>
+    </div>
+
+    <!-- 100% GLOBAL CLOUD DEPLOYMENT CARD -->
+    <div class="cloud-banner">
+      <h3>🌐 Want a Global Link that opens on 4G/5G anywhere in the world?</h3>
+      <p>
+        Local Wi-Fi IPs only work when phone and laptop share the same Wi-Fi. If you want a <strong>real, permanent website link</strong> (e.g. <code>https://jet-ai.vercel.app</code>) that opens anywhere without keeping your laptop on:
+      </p>
+      <div style="margin-bottom:8px;">
+        Run this in your terminal: <span class="code-pill">cmd /c "npx vercel"</span>
+      </div>
+      <p style="font-size:12px; color:#94a3b8; margin:0;">
+        Follow the 3 prompts to deploy 100% free. You get an official HTTPS link with worldwide speed and instant mobile compatibility.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    function updateIp() {
+      const ip = document.getElementById('ipInput').value.trim();
+      if (!ip) return;
+      const webUrl = 'http://' + ip + ':3000';
+      const chatUrl = 'http://' + ip + ':3000/api/chat';
+      const convUrl = 'http://' + ip + ':3000/api/conversations';
+      
+      document.getElementById('mobileUrl').innerText = webUrl;
+      document.getElementById('chatApiUrl').innerText = chatUrl;
+      document.getElementById('convApiUrl').innerText = convUrl;
+      document.getElementById('qrImg').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(webUrl);
+    }
+
+    function copyText(elementId, btnId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text);
+      const btn = document.getElementById(btnId);
+      const prev = btn.innerText;
+      btn.innerText = 'Copied!';
+      setTimeout(() => { btn.innerText = prev; }, 2000);
+    }
+  </script>
+</body>
+</html>

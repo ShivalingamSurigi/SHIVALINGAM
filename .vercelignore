@@ -1,0 +1,7 @@
+.env.local
+.env*.local
+*.bat
+*.vbs
+*.url
+*.html
+tests/
